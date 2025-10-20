@@ -44,7 +44,7 @@ if not df.empty:
         #produçao
         producao = df[df['Peças Produzidas'] < 80]
         if not producao.empty:
-            st.warning('A produção caiu abaixo de 80 peças nestes dias:')
+            st.error('A produção caiu abaixo de 80 peças nestes dias:')
             st.dataframe(producao[['Data','Turno','Máquina','Peças Produzidas']])
             #eficiencia
             eficiencia = df.groupby('Data').sum().reset_index()
@@ -52,7 +52,7 @@ if not df.empty:
             st.subheader('Eficiência por dia (%)')
             erro = eficiencia[eficiencia['Eficiência por dia (%)'] < 90]
         if not erro.empty:
-         st.warning('Alguns dias tiveram eficiência por dia menor que 90%')
+         st.error('Esses dias tiveram eficiência por dia menor que 90%:')
          st.dataframe(eficiencia[['Data','Peças Produzidas','Total','Eficiência por dia (%)']])
 #graficos
     if escolha == 'Gráficos':
@@ -70,4 +70,5 @@ if not df.empty:
 #salvar
     if st.button('Salvar'):
         df.to_csv('C:\Senai\Empresa.csv', index=False)
+
         st.success('Dados Salvos')
